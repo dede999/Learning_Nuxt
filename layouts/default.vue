@@ -22,6 +22,17 @@
             <v-list-tile-title v-text="item.title" />
           </v-list-tile-content>
         </v-list-tile>
+        <v-divider />
+        <v-list-tile>
+           <v-list-tile-action>
+              <nuxt-link :to="{name: 'posts-id', params: {id: 1}}">
+                 <v-icon>pets</v-icon>
+              </nuxt-link>
+           </v-list-tile-action>
+           <v-list-tile-content>
+              <v-list-tile-title> My first post </v-list-tile-title>
+           </v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar
@@ -117,3 +128,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+</style>
+
+<style>
+   a {
+      text-decoration: none;
+   }
+</style>

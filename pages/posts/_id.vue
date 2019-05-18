@@ -1,43 +1,47 @@
 <template>
     <v-container>
-       <h1 class="display-1"> Post #{{ post.id }} </h1>
+       <h1 class="display-2"> Post #{{ post.id }} </h1>
 
        <v-layout row-wrap>
-         <v-flex s12>
+         <v-flex sm9>
             <v-card color="blue-red" class="white--text">
                <v-card-title>
                   {{ post.title }}
                </v-card-title>
-               {{ post.description }}
+               {{ post.body }}
             </v-card>
          </v-flex>
+          <v-flex sm3>
+             <v-btn color="secondary" outline
+             v-for="other in others" :key="other.id">
+                <nuxt-link :to="{name: 'posts-id', params: {id: other.id}}">
+                   {{ other.title }}
+                </nuxt-link>
+             </v-btn>
+          </v-flex>
        </v-layout>
     </v-container>
 </template>
 
 <script>
-    import post from "./post";
+   import axios from 'axios'
 
     export default {
        name: "_id.vue",
        data() {
           return {
-             id: this.$route.params.id,
-             posts: [
-                {id: 1, title: "Feeding Rex", description: "Learn how to feed your dog"},
-                {id: 2, title: "Breeding Rex", description: "Learn how to help your pal finding his/her soul mate"},
-                {id: 3, title: "Adopting", description: "Where should I adopt my dog"}
-             ]
+             id: this.$route.params.id
           }
        },
-       computed: {
-          post () {
-             return this.posts.find(post => post.id === this.id)
-          }
+       async asyncData (context) {
+          let response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${context.params.id}`);
+          return {post: response.data}
        }
     }
 </script>
 
 <style scoped>
-
+   a {
+      color: orangered;
+   }
 </style>
